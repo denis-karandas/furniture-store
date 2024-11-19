@@ -1,0 +1,38 @@
+@import 'styles/colors.scss';
+
+.image-gallery {
+    &__image {
+        &:first-child {
+            width: 100%;
+        }
+
+        &:not(:first-child) {
+            width: calc(calc(100% - 40px) / 5);
+            border-radius: 5px;
+        }
+    }
+
+    &__items {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    &__item {
+        width: calc(calc(100% - 40px) / 5);
+        border-radius: 5px;
+    }
+
+    &__more {
+        width: calc(calc(100% - 40px) / 5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #EEEEEE;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $martinique;
+        cursor: pointer;
+    }
+}

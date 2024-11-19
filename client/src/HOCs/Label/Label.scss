@@ -1,0 +1,28 @@
+@import 'styles/colors.scss';
+
+.label {
+    color: $midGray;
+    font-size: 14px;
+    line-height: 110%;
+    user-select: none;
+
+    &__position {
+        &_top {
+            flex-direction: column;
+        }
+
+        &_bottom {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        &_left {
+            display: flex;
+        }
+
+        &_right {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+    }
+}

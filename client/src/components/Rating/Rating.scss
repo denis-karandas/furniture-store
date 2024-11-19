@@ -1,0 +1,31 @@
+@import 'styles/colors.scss';
+
+.rating {
+    display: flex;
+
+    &_small {
+        .rating__item {
+            width: 14px;
+        }
+    }
+
+    &_medium {
+        .rating__item {
+            width: 18px;
+        }
+    }
+
+    &_extra-large {
+        .rating__item {
+            width: 30px;
+        }
+    }
+
+    &__item {
+        fill: $gallery;
+
+        &_active {
+            fill: $energyYellow;
+        }
+    }
+}

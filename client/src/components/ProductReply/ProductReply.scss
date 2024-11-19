@@ -1,0 +1,39 @@
+@import 'styles/colors.scss';
+
+.product-reply {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 15px;
+    color: $martinique;
+
+    &__image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    
+    &__top {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        margin-top: 17px;
+    }
+
+    &__user {
+        font-size: 16px;
+        line-height: 100%;
+        font-weight: 500;
+    }
+
+    &__published {
+        font-size: 14px;
+        line-height: 100%;
+        color: $santasGray;
+    }
+
+    &__text {
+        margin-top: 20px;
+        line-height: 22px;
+    }
+}

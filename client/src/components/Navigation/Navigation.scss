@@ -1,0 +1,41 @@
+@import 'styles/colors.scss';
+
+.navigation {
+    display: flex;
+    align-items: center;
+    column-gap: 32px;
+
+    &__button {
+        padding: 15px 24px;
+        display: flex;
+        align-items: center;
+        column-gap: 16px;
+        border: 1px solid $iron;
+        border-radius: 6px;
+        cursor: pointer;
+
+        span {
+            font-size: 14px;
+            line-height: 14px;
+            font-weight: 500;
+            color: $martinique;
+        }
+    }
+
+    &__items {
+        display: flex;
+        column-gap: 32px;
+
+        li a {
+            font-size: 14px;
+            font-weight: 500;
+            color: $midGray;
+        }
+    }
+
+    &__item {
+        &_active a {
+            color: $blueLagoon;
+        }
+    }
+}

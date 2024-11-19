@@ -1,0 +1,17 @@
+@import 'styles/colors.scss';
+
+.product-colors {
+    display: flex;
+    gap: 8px;
+
+    &__item {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &_active {
+            border: 2px solid $martinique;
+        }
+    }
+}

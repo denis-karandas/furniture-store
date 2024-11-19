@@ -1,0 +1,13 @@
+@import 'styles/colors.scss';
+
+.product-filter {
+    &__title {
+        font-size: 16px;
+        font-weight: 500;
+        color: $martinique;
+    }
+
+    &__content {
+        margin-top: 10px;
+    }
+}

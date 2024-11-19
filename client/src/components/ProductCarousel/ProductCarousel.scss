@@ -1,0 +1,62 @@
+@import 'styles/colors.scss';
+
+.product-carousel {
+    position: relative;
+
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        font-size: 32px;
+        line-height: 110%;
+        color: $martinique;
+    }
+
+    &__carousel {
+        margin-top: 40px;
+    }
+
+    &__arrows {
+        display: flex;
+        column-gap: 20px;
+    }
+
+    &__prev, &__next {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $porcelain;
+        border-radius: 50%;
+        z-index: 1;
+        cursor: pointer;
+
+        svg path {
+            stroke: $blueLagoon;
+        }
+
+        &:hover {
+            background-color: $blueLagoon;
+
+            svg path {
+                stroke: $white;
+            }
+        }
+    }
+
+    &__prev svg {
+        transform: rotate(180deg) !important;
+    }
+
+    &__prev {
+        left: 88px;
+    }
+
+    &__next {
+        right: 88px;
+    }
+}

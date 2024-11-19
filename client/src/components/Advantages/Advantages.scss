@@ -1,0 +1,35 @@
+@import 'styles/colors.scss';
+
+.advantages {
+    height: 150px;
+    padding: 50px 70px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $white;
+    border-radius: 12px;
+    box-shadow: 0 24px 100px rgba(22, 25, 50, 7%);
+
+    li {
+        display: flex;
+        align-items: center;
+        column-gap: 15px;
+
+        span {
+            display: block;
+        }
+    }
+
+    &__title {
+        font-size: 18px;
+        line-height: 110%;
+        font-weight: 500;
+        color: $martinique;
+    }
+
+    &__subtitle {
+        font-size: 15px;
+        line-height: 110%;
+        color: $santasGray;
+        margin-top: 6px;
+    }
+}

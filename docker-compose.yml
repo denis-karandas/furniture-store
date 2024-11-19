@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  database:
+    image: mysql:9.1.0
+    container_name: mysql
+    ports:
+      - "3307:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=furniture_store
+    volumes:
+      - database-data:/var/lib/mysql
+
+volumes:
+  database-data:

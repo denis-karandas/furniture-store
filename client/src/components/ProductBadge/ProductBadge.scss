@@ -1,0 +1,11 @@
+@import 'styles/colors.scss';
+
+.product-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: 13px;
+    line-height: 110%;
+    font-weight: 500;
+    color: $white;
+    border-radius: 4px;
+}

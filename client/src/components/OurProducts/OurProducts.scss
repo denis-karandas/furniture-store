@@ -1,0 +1,45 @@
+@import 'styles/colors.scss';
+
+.our-products {
+    &__title {
+        font-size: 32px;
+        line-height: 110%;
+        color: $martinique;
+        text-align: center;
+    }
+
+    &__categories {
+        display: flex;
+        justify-content: center;
+        column-gap: 8px;
+        margin-top: 16px;
+        
+        li {
+            padding: 8px;
+            font-size: 16px;
+            line-height: 110%;
+            font-weight: 500;
+            color: $santasGray;
+            user-select: none;
+            cursor: pointer;
+
+            &:hover {
+                color: $martinique;
+            }
+
+            &.our-products__category_active {
+                color: $martinique;
+                border-bottom: 2px solid $watercourse;
+            }
+        }
+    }
+
+    &__products {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        column-gap: 24px;
+        row-gap: 40px;
+        margin-top: 40px;
+    }
+}

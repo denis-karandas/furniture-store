@@ -1,0 +1,35 @@
+@import 'styles/colors.scss';
+
+.checkbox {
+    &__input {
+        &:checked + .checkbox__label::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-image: url(assets/icons/checkmark.svg);
+            background-size: 16px 16px;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            
+            svg path {
+                stroke: $black;
+            }
+        }
+    }
+
+    &__label {
+        display: flex;
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        border: 2px solid $santasGray;
+        border-radius: 4px;
+        background-color: $white;
+        position: relative;
+        cursor: pointer;
+    }
+}

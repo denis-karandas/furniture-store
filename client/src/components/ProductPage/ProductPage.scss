@@ -1,0 +1,126 @@
+@import 'styles/colors.scss';
+
+.product-page {
+    width: 1320px;
+    margin: 0 auto;
+    padding: 0 0 100px;
+
+    &__header {
+        padding: 40px 0 30px;
+    }
+
+    &__top {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 80px;
+    }
+
+    &__title {
+        font-size: 30px;
+        color: $martinique;
+    }
+
+    &__code {
+        display: block;
+        font-size: 16px;
+        color: $santasGray;
+        margin-top: 10px;
+    }
+
+    &__rating {
+        display: flex;
+        column-gap: 15px;
+        margin-top: 15px;
+
+        span {
+            font-size: 14px;
+            color: $santasGray;
+        }
+    }
+
+    &__price {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        margin-top: 50px;
+
+        &_new {
+            font-size: 34px;
+            line-height: 100%;
+            font-weight: 600;
+        }
+
+        &_old {
+            font-size: 24px;
+            line-height: 100%;
+            font-weight: 400;
+            color: $santasGray;
+            text-decoration: line-through;
+        }
+    }
+
+    &__colors {
+        margin-top: 50px;
+    }
+
+    &__buttons {
+        display: grid;
+        grid-template-columns: 1fr 52px;
+        column-gap: 10px;
+        margin-top: 50px;
+    }
+
+    &__add {
+        height: 52px;
+        background-color: $bondiBlue;
+        font-weight: 500;
+        color: $white;
+
+        svg path {
+            stroke: $white;
+        }
+    }
+
+    &__favorite {
+        height: 52px;
+        background-color: $gallery;
+
+        svg path {
+            stroke: $black;
+        }
+
+        &_active {
+            svg {
+                fill: #f72a2a;
+
+                path {
+                    stroke: #f72a2a;
+                }
+            }
+        }
+    }
+
+    &__bottom {
+        display: grid;
+        grid-template-columns: 1fr 30%;
+        column-gap: 80px;
+        margin-top: 100px;
+    }
+
+    &__tabs {
+        display: flex;
+        column-gap: 35px;
+    }
+
+    &__tab {
+        font-size: 24px;
+        font-weight: 600;
+        color: $santasGray;
+        user-select: none;
+        cursor: pointer;
+
+        &_active {
+            color: $martinique;
+        }
+    }
+}

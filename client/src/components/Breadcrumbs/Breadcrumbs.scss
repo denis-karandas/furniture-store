@@ -1,0 +1,39 @@
+@import 'styles/colors.scss';
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    
+    li {
+        a {
+            color: $midGray;
+        }
+
+
+        &:not(:first-child) {
+            position: relative;
+            padding-left: 20px;
+
+            &::before {
+                content: '';
+                width: 18px;
+                height: 18px;
+                background-image: url('assets/icons/arrow-2.svg');
+                background-size: 6px 10px;
+                background-repeat: no-repeat;
+                background-position: center;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+        }
+
+        &:hover {
+            a {
+                color: $martinique;
+            }
+        }
+    }
+}

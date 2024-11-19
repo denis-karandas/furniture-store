@@ -1,0 +1,19 @@
+@import 'styles/colors.scss';
+
+.input {
+    width: 100%;
+    background-color: $porcelain;
+    border-radius: 8px;
+    border: 1px solid $porcelain;
+    padding: 16px 20px;
+    font-size: 16px;
+
+    &::placeholder {
+        color: $santasGray;
+        user-select: none;
+    }
+
+    &__error {
+        border: 1px solid #f92a2a;
+    }
+}

@@ -1,0 +1,31 @@
+@import 'styles/colors.scss';
+
+.social-networks {
+    width: fit-content;
+    display: flex;
+    column-gap: 4px;
+
+    li {
+        a {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid $white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg path {
+                fill: $midGray;
+            }
+        }
+
+        &:hover a {
+            border: 1px solid $blueLagoon;
+
+            svg path {
+                fill: $blueLagoon;
+            }
+        }
+    }
+}

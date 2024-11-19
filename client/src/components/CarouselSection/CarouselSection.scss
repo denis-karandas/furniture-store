@@ -1,0 +1,77 @@
+@import 'styles/colors.scss';
+
+.carousel-section {
+    padding-bottom: 75px;
+    position: relative;
+
+    &__carousel {
+        height: 850px;
+        background-color: $porcelain;
+        border-bottom-left-radius: 48px;
+        border-bottom-right-radius: 48px;
+    }
+
+    &__prev, &__next {
+        width: 52px;
+        height: 52px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $white;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        cursor: pointer;
+
+        svg path {
+            stroke: #007580;
+        }
+    }
+
+    &__prev svg {
+        transform: rotate(180deg) !important;
+    }
+
+    &__prev {
+        left: 88px;
+    }
+
+    &__next {
+        right: 88px;
+    }
+
+
+    &__dots {
+        display: flex;
+        column-gap: 12px;
+        position: absolute;
+        bottom: 186px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+
+        .swiper-pagination-bullet {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(154, 156, 170, 40%);
+            cursor: pointer;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: $martinique;
+        }
+    }
+
+    &__advantages {
+        width: 1320px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+    }
+}

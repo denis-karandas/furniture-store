@@ -1,0 +1,16 @@
+@import 'styles/colors.scss';
+
+.logo {
+    width: fit-content;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    user-select: none;
+
+    span {
+        font-size: 26px;
+        font-weight: 500;
+        color: $cornflowerBlue;
+    }
+}
