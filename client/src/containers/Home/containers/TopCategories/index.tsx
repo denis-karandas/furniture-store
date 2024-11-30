@@ -4,37 +4,55 @@ import { ICategoryItemProps } from 'components/CategoryItem/interfaces';
 
 const categories: ICategoryItemProps[] = [
     {
-        image: '/images/category-1.png',
+        image: {
+            url: '/images/category-1.png',
+            alt: 'Wing Chair',
+        },
         name: 'Wing Chair',
         totalProducts: 3584,
         url: '/category/wing-chair',
     },
     {
-        image: '/images/category-2.png',
+        image: {
+            url: '/images/category-2.png',
+            alt: 'Wing Chair',
+        },
         name: 'Wooden Chair',
         totalProducts: 157,
         url: '/category/wing-chair',
     },
     {
-        image: '/images/category-3.png',
+        image: {
+            url: '/images/category-3.png',
+            alt: 'Wing Chair',
+        },
         name: 'Desk Chair',
         totalProducts: 154,
         url: '/category/wing-chair',
     },
     {
-        image: '/images/category-1.png',
+        image: {
+            url: '/images/category-1.png',
+            alt: 'Wing Chair',
+        },
         name: 'Wing Chair',
         totalProducts: 3584,
         url: '/category/wing-chair',
     },
     {
-        image: '/images/category-2.png',
+        image: {
+            url: '/images/category-2.png',
+            alt: 'Wing Chair',
+        },
         name: 'Wooden Chair',
         totalProducts: 157,
         url: '/category/wing-chair',
     },
     {
-        image: '/images/category-3.png',
+        image: {
+            url: '/images/category-3.png',
+            alt: 'Wing Chair',
+        },
         name: 'Desk Chair',
         totalProducts: 154,
         url: '/category/wing-chair',

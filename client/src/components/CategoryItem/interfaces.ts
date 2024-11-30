@@ -1,5 +1,8 @@
 export interface ICategoryItemProps {
-    image: string;
+    image: {
+        url: string;
+        alt: string;
+    };
     name: string;
     totalProducts: number;
     url: string;

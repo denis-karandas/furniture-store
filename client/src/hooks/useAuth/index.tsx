@@ -1,14 +1,26 @@
 import { useEffect } from 'react';
 import { useUserStore } from 'store';
+import { checkAuth } from 'api/auth';
 
 const useAuth = () => {
-    const { checkAuth } = useUserStore();
+    const { setUser } = useUserStore();
 
     useEffect(() => {
-        if (localStorage.getItem('accessToken')) {
-            checkAuth();
+        const asyncFunc = async () => {
+            try {
+                const { user } = await checkAuth();
+
+                if (user) {
+                    setUser(user);
+                }
+            }
+            catch (err) {}
+        };
+        
+        if (localStorage.getItem('authenticated')) {
+            asyncFunc();
         }
-    }, [checkAuth]);
+    }, [checkAuth, setUser]);
 };
 
 export default useAuth;

@@ -4,6 +4,7 @@ import { MainLayout, AccountLayout } from './layouts';
 import { Account, HomePage, SignInPage, SignUpPage } from 'containers';
 import { AuthGuard } from 'HOCs';
 import { useAuth } from 'hooks';
+import { Product } from 'components';
 
 const App = () => {
     useAuth();

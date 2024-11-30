@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { ProductImage } from 'modules/productImage/productImage.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -17,7 +16,4 @@ export class Product {
 
     @Column({ name: 'total_reviews' })
     totalReviews: number;
-
-    @OneToMany(() => ProductImage, productImage => productImage.product)
-    images: ProductImage[];
 }

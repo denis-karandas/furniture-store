@@ -6,15 +6,15 @@ import { AuthService } from '../auth.service';
 import { User } from 'modules/user/user.entity';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
 	constructor(private readonly authService: AuthService) {
 		super({
 			jwtFromRequest: ExtractJwt.fromExtractors([
-				JwtStrategy.extractJWT,
+				JwtRefreshStrategy.extractJWT,
 				ExtractJwt.fromAuthHeaderAsBearerToken(),
 			]),
 			ignoreExpiration: false,
-			secretOrKey: process.env.JWT_ACCESS_TOKEN_SECRET,
+			secretOrKey: process.env.JWT_REFRESH_TOKEN_SECRET,
 		});
 	}
 
@@ -23,8 +23,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 	}
 
 	private static extractJWT(req: Request): string | null {
-		if (req.cookies && req.cookies.accessToken) {
-			return req.cookies.accessToken;
+		if (req.cookies && req.cookies.refreshToken) {
+			return req.cookies.refreshToken;
 		}
 		return null;
 	}

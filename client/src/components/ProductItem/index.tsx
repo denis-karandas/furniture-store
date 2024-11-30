@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { ProductBadge } from 'components';
 import { Button } from 'HOCs';
 import { formatToString } from 'helpers/currency';
@@ -13,7 +14,7 @@ import './ProductItem.scss';
 
 
 const ProductItem = ({
-    image = '',
+    image,
     name = '',
     price = 0,
     oldPrice = 0,
@@ -44,7 +45,13 @@ const ProductItem = ({
     return (
             <div className="product-item">
                 <NavLink to={url} className="product-item__image">
-                    <img src={image} alt={name} />
+                    <LazyLoadImage
+                        src={image.url}
+                        alt={image.alt}
+                        width={312}
+                        height={312}
+                        effect="blur"
+                    />
                     {badges.length > 0 && renderBadges()}
                 </NavLink>
                 <div className="product-item__info">

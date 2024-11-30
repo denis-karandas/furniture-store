@@ -12,7 +12,11 @@ export class UserService {
         private readonly userRepository: Repository<User>
     ) {}
 
-    findByEmail(email: string) {
+    findById(id: number): Promise<User> {
+        return this.userRepository.findOneBy({ id });
+    }
+
+    findByEmail(email: string): Promise<User> {
         return this.userRepository.findOneBy({ email });
     }
 

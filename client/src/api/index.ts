@@ -1,27 +1,40 @@
 import axios from 'axios';
+import { refresh } from './auth';
+
+export const BASE_URL = 'http://localhost:3001' as string;
 
 const api = axios.create({
-    baseURL: 'http://localhost:3001' as string,
-});
-
-api.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
-
-    return config;
+    baseURL: BASE_URL,
+    withCredentials: true,
 });
 
 api.interceptors.response.use(
-    config => config.data,
-    error => {
-        if (error.response.status == 401) {
-            localStorage.removeItem('accessToken');
+    response => response.data,
+    async (error) => {
+        const originalRequest = error.config;
 
-            if (location.pathname !== '/sign-in') {
-                location.replace('/sign-in');
+        const error401 = error.response && error.response.status === 401;
+        const retryWasNotPerformed = !originalRequest._isRetry;
+        const userIsNotOnTheSignInPage = window.location.pathname !== '/sign-in';
+
+        if (error401 && retryWasNotPerformed && userIsNotOnTheSignInPage) {
+            originalRequest._isRetry = true;
+
+            try {
+                await refresh();
+                localStorage.setItem('authenticated', '1');
+
+                return api(originalRequest);
             }
-            return;
+            catch (refreshError) {
+                localStorage.removeItem('authenticated');
+                window.location.href = '/sign-in';
+
+                return Promise.reject(refreshError);
+            }
         }
-        throw error;
+
+        return Promise.reject(error);
     },
 );
 

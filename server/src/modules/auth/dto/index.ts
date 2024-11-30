@@ -1,1 +1,1 @@
-export { SignUpDto } from './sign-up.dto';
+export { RegistrationDto } from './registration.dto';

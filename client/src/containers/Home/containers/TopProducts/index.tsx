@@ -6,7 +6,10 @@ import { BadgeType } from 'components/ProductBadge/interfaces';
 
 const products: IProductItemProps[] = [
     {
-        image: "/images/library-stool-chair.png",
+        image: {
+            url: "/images/library-stool-chair.png",
+            alt: "Library Stool Chair",
+        },
         name: "Library Stool Chair",
         price: 20,
         oldPrice: 0,
@@ -18,7 +21,11 @@ const products: IProductItemProps[] = [
         ],
     },
     {
-        image: "/images/library-stool-chair-2.png",
+        image: {
+            url: "/images/library-stool-chair-2.png",
+            alt: "Library Stool Chair",
+        },
+        placeholder: "/images/library-stool-chair-2_placeholder.png",
         name: "Library Stool Chair",
         price: 20,
         oldPrice: 30,
@@ -27,7 +34,10 @@ const products: IProductItemProps[] = [
         badges: [],
     },
     {
-        image: "/images/library-stool-chair-3.png",
+        image: {
+            url: "/images/library-stool-chair-3.png",
+            alt: "Library Stool Chair",
+        },
         name: "Library Stool Chair",
         price: 20,
         oldPrice: 0,
@@ -36,7 +46,10 @@ const products: IProductItemProps[] = [
         badges: [],
     },
     {
-        image: "/images/library-stool-chair-4.png",
+        image: {
+            url: "/images/library-stool-chair-4.png",
+            alt: "Library Stool Chair",
+        },
         name: "Library Stool Chair",
         price: 20,
         oldPrice: 25,
@@ -45,7 +58,35 @@ const products: IProductItemProps[] = [
         badges: [],
     },
     {
-        image: "/images/library-stool-chair.png",
+        image: {
+            url: "/images/library-stool-chair.png",
+            alt: "Library Stool Chair",
+        },
+        name: "Library Stool Chair",
+        price: 20,
+        oldPrice: 0,
+        currency: 'USD',
+        url: "/product/library-stool-chair",
+        badges: [],
+    },
+       {
+        image: {
+            url: "/images/library-stool-chair-2.png",
+            alt: "Library Stool Chair",
+        },
+        placeholder: "/images/library-stool-chair-2_placeholder.png",
+        name: "Library Stool Chair",
+        price: 20,
+        oldPrice: 30,
+        currency: 'USD',
+        url: "/product/library-stool-chair",
+        badges: [],
+    },
+    {
+        image: {
+            url: "/images/library-stool-chair-3.png",
+            alt: "Library Stool Chair",
+        },
         name: "Library Stool Chair",
         price: 20,
         oldPrice: 0,
@@ -54,43 +95,28 @@ const products: IProductItemProps[] = [
         badges: [],
     },
     {
-        image: "/images/library-stool-chair-2.png",
+        image: {
+            url: "/images/library-stool-chair-4.png",
+            alt: "Library Stool Chair",
+        },
         name: "Library Stool Chair",
         price: 20,
-        oldPrice: 0,
-        currency: 'USD',
-        url: "/product/library-stool-chair",
-        badges: [],
-    },
-    {
-        image: "/images/library-stool-chair-3.png",
-        name: "Library Stool Chair",
-        price: 20,
-        oldPrice: 0,
-        currency: 'USD',
-        url: "/product/library-stool-chair",
-        badges: [],
-    },
-    {
-        image: "/images/library-stool-chair-4.png",
-        name: "Library Stool Chair",
-        price: 20,
-        oldPrice: 0,
+        oldPrice: 25,
         currency: 'USD',
         url: "/product/library-stool-chair",
         badges: [],
     },
 ];
 
-const FeaturedProducts = () => {
+const TopProducts = () => {
     return (
         <BaseSection className="mt-60">
             <ProductCarousel
-                title="Featured Products"
+                title="Top Products"
                 products={products}
             />
         </BaseSection>
     );
 }
 
-export default FeaturedProducts;
+export default TopProducts;

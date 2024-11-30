@@ -1,12 +1,16 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UserService } from 'modules/user/user.service';
 import { User } from 'modules/user/user.entity';
-import { SignUpDto } from './dto';
+import { RegistrationDto } from './dto';
+import { TokenService } from 'modules/token/token.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UserService) {}
+    constructor(
+        private readonly userService: UserService,
+        private readonly tokenService: TokenService,
+    ) {}
 
     async validateUser(email: string, password: string): Promise<User> {
         const user = await this.userService.findByEmail(email);
@@ -22,8 +26,8 @@ export class AuthService {
         return user;
     }
 
-    async validateUserByEmail(email: string): Promise<User> {
-        const user = await this.userService.findByEmail(email);
+    async validateUserById(id: number): Promise<User> {
+        const user = await this.userService.findById(id);
         if (!user) {
             throw new UnauthorizedException();
         }
@@ -31,7 +35,70 @@ export class AuthService {
         return user;
     }
 
-    async signUp(dto: SignUpDto): Promise<User> {
-        return this.userService.create(dto);
+    async login(
+        user: User
+    ): Promise<{ user: User; accessToken: string; refreshToken: string; }> {
+        const tokenPayload = TokenService.getTokenPayload(user);
+        const accessToken = this.tokenService.generateAccessToken(tokenPayload);
+        const refreshToken = this.tokenService.generateRefreshToken(tokenPayload);
+
+        await this.tokenService.saveRefreshToken(user, refreshToken);
+
+        return {
+            user,
+            accessToken,
+            refreshToken,
+        };
+    }
+
+    logout(refreshToken: string): Promise<any> {
+        if (refreshToken) {
+            throw new UnauthorizedException();
+        }
+
+        return this.tokenService.deleteTokenByValue(refreshToken);
+    }
+
+    async registration(
+        dto: RegistrationDto
+    ): Promise<{ user: User; accessToken: string; refreshToken: string; }> {
+        const user = await this.userService.create(dto);
+
+        const tokenPayload = TokenService.getTokenPayload(user);
+        const accessToken = this.tokenService.generateAccessToken(tokenPayload);
+        const refreshToken = this.tokenService.generateRefreshToken(tokenPayload);
+
+        await this.tokenService.saveRefreshToken(user, refreshToken);
+
+        return {
+            user,
+            accessToken,
+            refreshToken,
+        };
+    }
+
+    async refresh(
+        user: User,
+        refreshToken: string
+    ): Promise<{ user: User; accessToken: string; refreshToken: string; }> {
+        const token = await this.tokenService.findOne({
+            where: { value: refreshToken },
+            relations: { user: true },
+        });
+        if (!token || token.user?.id !== user.id) {
+            throw new UnauthorizedException();  
+        }
+
+        const tokenPayload = TokenService.getTokenPayload(user);
+        const accessToken = this.tokenService.generateAccessToken(tokenPayload);
+        const newRefreshToken = this.tokenService.generateRefreshToken(tokenPayload);
+
+        await this.tokenService.saveRefreshToken(user, newRefreshToken);
+
+        return {
+            user,
+            accessToken,
+            refreshToken: newRefreshToken,
+        };
     }
 }

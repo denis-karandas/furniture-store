@@ -1,27 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UseFormProps } from 'react-hook-form';
+import { useUserStore } from 'store';
+import { login } from 'api/auth';
 import { SignInPage } from 'components';
 import { ISignInFormValues } from 'components/SignInForm/interfaces';
-import { useUserStore } from 'store';
 
 const SignIn = () => {
     const navigate = useNavigate();
-    const { error, signIn, resetError } = useUserStore();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const { user, setUser } = useUserStore();
 
     useEffect(() => {
-        return () => {
-            resetError();
-        };
-    }, [resetError]);
+        if (user) {
+            navigate('/account');
+        }
+    }, [user]);
 
-    const onSubmit = (values: ISignInFormValues) => {
-        signIn({ email: values.email, password: values.password })
-            .then(user => {
-                if (user) {
-                    navigate('/account');
-                }
-            });
+    const onSubmit = async (values: ISignInFormValues) => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const { user } = await login({ email: values.email, password: values.password });
+
+            localStorage.setItem('authenticated', '1');
+
+            setUser(user);
+        }
+        catch (err: any) {
+            setError(err.message);
+        }
+
+        setIsLoading(false);
     };
 
     const getErrors = (): UseFormProps['errors'] => {
@@ -29,11 +42,11 @@ const SignIn = () => {
             return {
                 email: {
                     type: 'validate',
-                    message: error ? error.message : 'Unknown error',
+                    message: error || 'Unknown error',
                 },
                 password: {
                     type: 'validate',
-                    message: error ? error.message : 'Unknown error',
+                    message: error || 'Unknown error',
                 },
             };
         }

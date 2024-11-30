@@ -1,15 +1,16 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { RefreshToken } from 'modules/token/refreshToken.entity';
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'first_name' })
-    firstName: string;
+    @Column()
+    first_name: string;
 
-    @Column({ name: 'last_name' })
-    lastName: string;
+    @Column()
+    last_name: string;
 
     @Column()
     email: string;
@@ -20,9 +21,12 @@ export class User {
     @Column()
     password: string;
 
-    @CreateDateColumn({ name: 'created_at' })
-    createdAt: Date;
+    @CreateDateColumn()
+    created_at: Date;
 
-    @UpdateDateColumn({ name: 'updated_at' })
-    updatedAt: Date;
+    @UpdateDateColumn()
+    updated_at: Date;
+
+    @OneToOne(() => RefreshToken, refresh_token => refresh_token.user)
+    refresh_token: RefreshToken;
 }
