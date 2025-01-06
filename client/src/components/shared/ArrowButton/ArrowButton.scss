@@ -1,0 +1,56 @@
+@import 'styles/colors.scss';
+
+.arrow-button {
+    &__shape {
+        &_primary {
+            border-radius: 8px;
+        }
+
+        &_circle {
+            border-radius: 50%;
+        }
+    }
+
+    &__size {
+        &_primary {
+            width: 44px;
+            height: 44px;
+        }
+
+        &_large {
+            width: 52px;
+            height: 52px;
+        }
+    }
+
+    &__theme {
+        &_white {
+            background-color: $white;
+               
+            svg path {
+                stroke: $blueLagoon;
+            }
+
+            &:hover {
+                box-shadow: 1px 1px 10px $silver;
+            }
+        }
+
+        &_blue-lagoon {
+            background-color: $porcelain;
+            
+            svg path {
+                stroke: $cornflowerBlue;
+            }
+
+            &:hover {
+                background-color: $blueLagoon;
+
+
+                svg path {
+                    stroke: $white;
+                }
+            }
+        }
+    }
+}

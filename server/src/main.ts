@@ -11,7 +11,11 @@ async function bootstrap() {
         credentials: true,
     });
     app.use(cookieParser());
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(
+        new ValidationPipe({
+            transform: true,
+        })
+    );
     
     await app.listen(process.env.PORT);
 }

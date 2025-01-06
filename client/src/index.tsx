@@ -5,10 +5,9 @@ import App from './App';
 
 import 'swiper/css';
 import 'react-loading-skeleton/dist/skeleton.css';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'styles/index.scss';
 
-const root = createRoot(document.getElementById('root') as any);
+const root = createRoot(document.getElementById('root') as HTMLDivElement);
 root.render(
     <BrowserRouter>
         <App />

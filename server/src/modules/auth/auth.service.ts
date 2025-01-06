@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserService } from 'modules/user/user.service';
 import { User } from 'modules/user/user.entity';
-import { RegistrationDto } from './dto';
+import { RegisterDto } from './dto';
 import { TokenService } from 'modules/token/token.service';
 
 @Injectable()
@@ -51,16 +52,16 @@ export class AuthService {
         };
     }
 
-    logout(refreshToken: string): Promise<any> {
-        if (refreshToken) {
+    logout(refreshToken: string): Promise<DeleteResult> {
+        if (!refreshToken) {
             throw new UnauthorizedException();
         }
 
         return this.tokenService.deleteTokenByValue(refreshToken);
     }
 
-    async registration(
-        dto: RegistrationDto
+    async register(
+        dto: RegisterDto
     ): Promise<{ user: User; accessToken: string; refreshToken: string; }> {
         const user = await this.userService.create(dto);
 

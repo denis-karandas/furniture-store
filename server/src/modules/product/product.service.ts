@@ -1,28 +1,72 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { QueryRunner, Repository } from 'typeorm';
+import { paginate, Pagination, PaginationTypeEnum } from 'nestjs-typeorm-paginate';
+import { TransactionService } from 'modules/transaction/transaction.service';
+import { ProductImageService } from 'modules/product-image/product-image.service';
+import { StringService } from 'modules/string/string.service';
+import { ProductPriceService } from 'modules/product-price/product-price.service';
 import { Product } from './product.entity';
+import { CreateProductDto, FindAllProductsDto } from './dto';
 
 @Injectable()
 export class ProductService {
     constructor(
         @InjectRepository(Product)
-        private readonly productRepository: Repository<Product>
+        private readonly productRepository: Repository<Product>,
+        private readonly transactionService: TransactionService,
+        private readonly productImageService: ProductImageService,
+        private readonly productPriceService: ProductPriceService,
     ) {}
 
-    findAll(): Promise<Product[]> { // TODO: in progress
-        return this.productRepository.find(); 
+    findAll({ limit = 10, page = 1 }: FindAllProductsDto): Promise<Pagination<Product>> {
+        return paginate(
+            this.productRepository,
+            {
+                limit,
+                page,
+                paginationType: PaginationTypeEnum.TAKE_AND_SKIP,
+            },
+            {
+                relations: {
+                    product_images: {
+                        image: true,
+                        placeholder_image: true,
+                    },
+                    product_price: true,
+                },
+            }
+        );
     }
 
-    findAllFeatured(): Promise<Product[]> { // TODO: in progress
-        return this.productRepository.find();
-    }
+    async create(
+        dto: CreateProductDto,
+        files: Express.Multer.File[]
+    ): Promise<Product> {
+        return this.transactionService.executeTransition<Product>(async (queryRunner: QueryRunner) => {
+            const slug = StringService.slugify(dto.name);
 
-    findAllTop(): Promise<Product[]> { // TODO: in progress
-        return this.productRepository.find();
-    }
+            const productWithDtoSlug = await this.productRepository.findOneBy({ slug });
+            if (productWithDtoSlug) {
+                throw new BadRequestException('Product with this name already exists');
+            }
 
-    create(dto: any): Promise<Product> { // TODO: in progress
-        return this.productRepository.save(dto);
+            const product_images = await Promise.all(
+                files.map((file: Express.Multer.File, index: number) => {
+                    return this.productImageService.create(queryRunner, file, { order: index + 1 });
+                })
+            );
+
+            const product_price = await this.productPriceService.create(queryRunner, {
+                price: dto.price,
+            });
+
+            return queryRunner.manager.save(Product, {
+                ...dto,
+                slug,
+                product_images,
+                product_price,
+            });
+        });
     }
 }

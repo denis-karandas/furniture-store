@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopProducts, MainCarousel, OurProducts, RecentlyAdded, TopCategories } from './containers';
+import { TopProducts, MainCarousel, OurProducts, RecentlyAdded, TopCategories, Reviews } from './containers';
 
 const Home = () => {
     return (
@@ -8,6 +8,7 @@ const Home = () => {
             <TopProducts />
             <TopCategories />
             <OurProducts />
+            <Reviews />
             <RecentlyAdded />
         </main>
     );

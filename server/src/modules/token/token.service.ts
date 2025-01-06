@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOneOptions, Repository } from 'typeorm';
+import { DeleteResult, FindOneOptions, Repository } from 'typeorm';
 import { User } from 'modules/user/user.entity';
 import { RefreshToken } from './refreshToken.entity';
 import { ITokenPayload } from './token.interfaces';
@@ -47,7 +47,7 @@ export class TokenService {
         });
     }
 
-    async deleteTokenByValue(refreshToken: string) {
+    async deleteTokenByValue(refreshToken: string): Promise<DeleteResult> {
         return this.refreshTokenRepository.delete({ value: refreshToken });
     }
 

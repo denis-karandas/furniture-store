@@ -1,6 +1,6 @@
 import axios from 'axios';
 import api, { BASE_URL } from 'api';
-import { ICheckAuthResponse, ILoginRequest, ILoginResponse, ILogoutResponse, IRefreshResponse, IRegistrationRequest, IRegistrationResponse } from './interfaces';
+import { ICheckAuthResponse, ILoginRequest, ILoginResponse, ILogoutResponse, IRefreshResponse, IRegisterRequest, IRegisterResponse } from './interfaces';
 
 export const login = async (body: ILoginRequest): Promise<ILoginResponse['data']> => {
     const { data } = await axios.post<ILoginRequest, ILoginResponse>(
@@ -12,9 +12,9 @@ export const login = async (body: ILoginRequest): Promise<ILoginResponse['data']
     return data;
 };
 
-export const registration = async (body: IRegistrationRequest): Promise<IRegistrationResponse['data']> => {
-    const { data } = await axios.post<IRegistrationRequest, IRegistrationResponse>(
-        BASE_URL + '/auth/registration',
+export const register = async (body: IRegisterRequest): Promise<IRegisterResponse['data']> => {
+    const { data } = await axios.post<IRegisterRequest, IRegisterResponse>(
+        BASE_URL + '/auth/register',
         body,
         { withCredentials: true }
     );

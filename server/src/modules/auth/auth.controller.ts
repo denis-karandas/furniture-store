@@ -1,9 +1,9 @@
 import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { JwtGuard, JwtRefreshGuard, LocalGuard } from 'guards';
-import { AuthService } from './auth.service';
-import { RegistrationDto } from './dto';
 import { UserService } from 'modules/user/user.service';
+import { AuthService } from './auth.service';
+import { RegisterDto } from './dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,7 +23,7 @@ export class AuthController {
     @UseGuards(LocalGuard)
     @HttpCode(200)
     @Post('login')
-    async signIn(
+    async login(
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response
     ) {
@@ -62,12 +62,12 @@ export class AuthController {
     }
 
     @HttpCode(201)
-    @Post('registration')
-    async registration(
+    @Post('register')
+    async register(
         @Res({ passthrough: true }) res: Response,
-        @Body() dto: RegistrationDto
+        @Body() dto: RegisterDto
     ) {
-        const { user, accessToken, refreshToken } = await this.authService.registration(dto);
+        const { user, accessToken, refreshToken } = await this.authService.register(dto);
 
         res.cookie('accessToken', accessToken, {
             maxAge: Number(process.env.JWT_ACCESS_TOKEN_MAX_AGE),

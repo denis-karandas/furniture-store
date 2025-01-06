@@ -1,0 +1,5 @@
+.account-content {
+    min-height: calc(100vh - 160px);
+    display: grid;
+    grid-template-columns: 20% 1fr;
+}

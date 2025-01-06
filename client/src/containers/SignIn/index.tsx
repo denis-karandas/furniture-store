@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UseFormProps } from 'react-hook-form';
-import { useUserStore } from 'store';
+import { useUserStore } from 'stores';
 import { login } from 'api/auth';
 import { SignInPage } from 'components';
-import { ISignInFormValues } from 'components/SignInForm/interfaces';
+import { ISignInFormValues } from 'components/pages/sign-in/SignInForm/interfaces';
 
 const SignIn = () => {
     const navigate = useNavigate();

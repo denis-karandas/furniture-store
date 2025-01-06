@@ -4,7 +4,7 @@ import { refresh } from './auth';
 export const BASE_URL = 'http://localhost:3001' as string;
 
 const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: process.env.API_URL as string,
     withCredentials: true,
 });
 

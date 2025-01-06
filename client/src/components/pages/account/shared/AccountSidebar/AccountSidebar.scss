@@ -1,0 +1,60 @@
+@import 'styles/colors.scss';
+
+.account-sidebar {
+    border-right: 1px solid $iron;
+
+    &__items {
+        padding: 20px;
+
+        li:not(:first-child) {
+            margin-top: 15px;
+        }
+    }
+
+    &__item {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        font-size: 14px;
+        color: $midGray;
+        user-select: none;
+
+        &:hover {
+            color: $bondiBlue;
+
+            .account-sidebar__icon_fill path {
+                fill: $bondiBlue;
+            }
+
+            .account-sidebar__icon_stroke path {
+                stroke: $bondiBlue;
+            }
+        }
+
+        &_active {
+            color: $bondiBlue;
+
+            .account-sidebar__icon_fill path {
+                fill: $bondiBlue;
+            }
+
+            .account-sidebar__icon_stroke path {
+                stroke: $bondiBlue;
+            }
+        }
+    }
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+
+        &_fill path {
+            fill: $midGray;
+        }
+
+        &_stroke path {
+            stroke: $midGray;
+        }
+    }
+}

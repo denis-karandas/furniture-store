@@ -1,0 +1,16 @@
+@import 'styles/colors.scss';
+
+.button {
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background-color: $white;
+    color: $martinique;
+    font-size: 16px;
+    user-select: none;
+    cursor: pointer;
+}

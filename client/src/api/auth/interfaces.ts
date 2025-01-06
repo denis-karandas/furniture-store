@@ -16,7 +16,7 @@ export interface ILoginResponse {
     };
 }
 
-export interface IRegistrationRequest {
+export interface IRegisterRequest {
     firstName: string;
     lastName: string;
     email: string;
@@ -24,7 +24,7 @@ export interface IRegistrationRequest {
     password: string;
 }
 
-export interface IRegistrationResponse {
+export interface IRegisterResponse {
     data: {
         user: IUser;
     };

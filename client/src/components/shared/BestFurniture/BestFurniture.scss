@@ -1,0 +1,68 @@
+@import 'styles/colors.scss';
+
+.best-furniture {
+    height: 850px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+
+    &__left {
+        max-width: 631px;
+        margin: 263px 0 0 210px;
+
+        & > span {
+            font-size: 14px;
+            color: $martinique;
+        }
+
+        h1 {
+            font-size: 68px;
+            font-weight: 600;
+            line-height: 110%;
+            color: $martinique;
+            margin-top: 8px;
+        }
+    }
+    
+    &__button {
+        width: 171px;
+        height: 52px;
+        background-color: $bondiBlue;
+        font-size: 16px;
+        font-weight: 500;
+        color: $white;
+        margin-top: 24px;
+        gap: 20px;
+    }
+
+    &__arrow path {
+        stroke: $white;
+    }
+
+    &__chair {
+        position: absolute;
+        top: 82px;
+        right: 291px;
+        z-index: 1;
+    }
+
+    &__discount {
+        position: absolute;
+        top: 82px;
+        right: 244px;
+        z-index: 2;
+    }
+
+
+    &::before {
+        content: '';
+        display: block;
+        width: 747px;
+        height: 747px;
+        background-color: $iron;
+        border-radius: 50%;
+        position: absolute;
+        top: -196px;
+        right: 189px;
+    }
+}

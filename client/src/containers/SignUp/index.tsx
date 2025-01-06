@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserStore } from 'store';
-import { registration } from 'api/auth';
+import { useUserStore } from 'stores';
+import { register } from 'api/auth';
 import { SignUpPage } from 'components';
-import { ISignUpFormValues } from 'components/SignUpForm/interfaces';
+import { ISignUpFormValues } from 'components/pages/sign-up/SignUpForm/interfaces';
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ const SignUp = () => {
         setError(null);
 
         try {
-            const { user } = await registration(values);
+            const { user } = await register(values);
 
             localStorage.setItem('authenticated', '1');
 

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { MainLayout, AccountLayout } from './layouts';
-import { Account, HomePage, SignInPage, SignUpPage } from 'containers';
-import { AuthGuard } from 'HOCs';
+import { AuthGuard } from 'components';
+import { AccountPage, AccountFavoritesPage, HomePage, SignInPage, SignUpPage } from 'containers';
 import { useAuth } from 'hooks';
-import { Product } from 'components';
+import { AccountLayout, MainLayout } from 'layouts';
 
 const App = () => {
     useAuth();
@@ -25,7 +24,13 @@ const App = () => {
                         </AuthGuard>
                     }
                 >
-                    <Route index element={<Account />} />
+                    <Route index element={<AccountPage />} />
+                    <Route path="cart" element={<div />} />
+                    <Route path="favorites" element={<AccountFavoritesPage />} />
+                    <Route path="orders" element={<div />} />
+                    <Route path="reviews" element={<div />} />
+                    <Route path="questions" element={<div />} />
+                    <Route path="settings" element={<div />} />
                 </Route>
             </Routes>
         </div>

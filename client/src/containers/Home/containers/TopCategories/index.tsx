@@ -1,6 +1,6 @@
 import React from 'react';
 import { CategoryCarousel } from 'components';
-import { ICategoryItemProps } from 'components/CategoryItem/interfaces';
+import { ICategoryItemProps } from 'components/shared/CategoryItem/interfaces';
 
 const categories: ICategoryItemProps[] = [
     {

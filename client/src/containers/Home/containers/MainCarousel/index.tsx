@@ -1,6 +1,5 @@
 import React from 'react';
-import { BestFurniture, CarouselSection } from 'components';
-import { WideCarouselSection } from 'HOCs';
+import { BestFurniture, CarouselSection, WideCarouselSection } from 'components';
 
 const MainCarousel = () => {
     return (

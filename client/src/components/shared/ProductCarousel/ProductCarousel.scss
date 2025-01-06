@@ -1,0 +1,38 @@
+@import 'styles/colors.scss';
+
+.product-carousel {
+    position: relative;
+
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        font-size: 32px;
+        line-height: 110%;
+        color: $martinique;
+    }
+
+    &__carousel {
+        margin-top: 40px;
+    }
+
+    &__arrows {
+        display: flex;
+        column-gap: 20px;
+    }
+
+    &__prev svg {
+        transform: rotate(180deg) !important;
+    }
+
+    &__prev {
+        left: 88px;
+    }
+
+    &__next {
+        right: 88px;
+    }
+}

@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ProductImage } from 'modules/product-image/product-image.entity';
+import { ProductPrice } from 'modules/product-price/product-price.entity';
+import { ProductReview } from 'modules/product-review/product-review.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -8,12 +11,21 @@ export class Product {
     @Column()
     name: string;
 
-    @Column()
-    code: string;
+    @Column({ unique: true })
+    slug: string;
 
-    @Column()
-    rating: number;
+    @CreateDateColumn()
+    created_at: Date;
 
-    @Column({ name: 'total_reviews' })
-    totalReviews: number;
+    @UpdateDateColumn()
+    updated_at: Date;
+
+    @OneToMany(() => ProductImage, productImage => productImage.product)
+    product_images: ProductImage[];
+
+    @OneToOne(() => ProductPrice, productPrice => productPrice.product)
+    product_price: ProductPrice;
+
+    @OneToOne(() => ProductReview, productReview => productReview.product)
+    product_review: ProductReview;
 }

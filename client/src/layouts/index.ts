@@ -1,2 +1,2 @@
-export { default as MainLayout } from './Main';
-export { default as AccountLayout } from './Account';
+export { default as MainLayout } from './MainLayout';
+export { default as AccountLayout } from './AccountLayout';

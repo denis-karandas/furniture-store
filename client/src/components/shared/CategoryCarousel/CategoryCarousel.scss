@@ -1,0 +1,75 @@
+@import 'styles/colors.scss';
+
+.category-carousel {
+    position: relative;
+    overflow: hidden;
+
+    &__title {
+        font-size: 32px;
+        line-height: 110%;
+    }
+
+    &__carousel {
+        overflow: initial !important;
+    }
+
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 1320px;
+        margin: 0 auto;
+    }
+
+    &__arrows {
+        display: flex;
+        column-gap: 20px;
+    }
+
+    &__prev svg {
+        transform: rotate(180deg) !important;
+    }
+
+    &__prev {
+        left: 88px;
+    }
+
+    &__next {
+        right: 88px;
+    }
+
+    &__bottom {
+        position: relative;
+
+        &::before {
+            content: '';
+            display: block;
+            width: calc(calc(100% - 1320px) / 2);
+            height: 100%;
+            background-color: $white;
+            opacity: .7;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            width: calc(calc(100% - 1320px) / 2);
+            height: 100%;
+            background-color: $white;
+            opacity: .7;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 10;
+        }
+    }
+
+    &__wrapper {
+        width: 1320px;
+        margin: 40px auto 0;
+    }
+}

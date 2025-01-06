@@ -1,6 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { StorageService } from 'modules/storage/storage.service';
 import { ProductService } from './product.service';
+import { CreateProductDto, FindAllProductsDto, FindBestSellersProductsDto, FindFeaturedProductsDto, FindRecentProductsDto, FindTopProductsDto, FindTrendingProductsDto } from './dto';
+import { Product } from './product.entity';
 
+// @UseGuards(JwtGuard)
 @Controller('products')
 export class ProductController {
     constructor(
@@ -8,22 +14,43 @@ export class ProductController {
     ) {}
 
     @Get()
-    findAll() {
-        return this.productService.findAll();
-    }
-
-    @Get('featured')
-    findAllFeatured() {
-        return this.productService.findAllFeatured();
+    async findAll(@Query() dto: FindAllProductsDto): Promise<Pagination<Product>> {
+        return this.productService.findAll(dto);
     }
 
     @Get('top')
-    findAllTop() {
-        return this.productService.findAllTop();
+    async findTop(@Query() dto: FindTopProductsDto): Promise<Pagination<Product>> {
+        return this.productService.findAll(dto); // TODO: mock data
+    }
+
+    @Get('recent')
+    async findRecent(@Query() dto: FindRecentProductsDto): Promise<Pagination<Product>> {
+        return this.productService.findAll(dto); // TODO: mock data
+    }
+
+    @Get('trending')
+    async findTrending(@Query() dto: FindTrendingProductsDto): Promise<Pagination<Product>> {
+        return this.productService.findAll(dto); // TODO: mock data
+    }
+
+    @Get('best-sellers')
+    async findBestSellers(@Query() dto: FindBestSellersProductsDto): Promise<Pagination<Product>> {
+        return this.productService.findAll(dto); // TODO: mock data
+    }
+
+    @Get('featured')
+    async findFeatured(@Query() dto: FindFeaturedProductsDto): Promise<Pagination<Product>> {
+        return this.productService.findAll(dto); // TODO: mock data
     }
 
     @Post()
-    create(@Body() dto: any) {
-        return this.productService.create(dto);
+    @UseInterceptors(
+        FilesInterceptor('images', 10, { storage: StorageService.tempStorage() })
+    )
+    create(
+        @Body() dto: CreateProductDto,
+        @UploadedFiles() images: Express.Multer.File[]
+    ): Promise<Product> {
+        return this.productService.create(dto, images);
     }
 }
