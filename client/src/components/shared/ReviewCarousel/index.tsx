@@ -1,49 +1,62 @@
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import Skeleton from 'react-loading-skeleton';
 import uniqid from 'uniqid';
-import { ArrowButton, ReviewItem } from 'components';
+import { ArrowButton, ReviewItem, EmptyContainer } from 'components';
 import { IReviewItemProps } from 'components/shared/ReviewItem/interfaces';
+import { IRewiewCarouselProps } from './interfaces';
 
 import './ReviewCarousel.scss';
 
-const reviews = [
-    {
-        image: '/images/user-1.png',
-        name: 'Kristin Watson',
-        role: 'Fashion Designer',
-        text: '“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet mi nec massa tincidunt blandit et eu sem. Maecenas laoreet ultrices diam dignissim posuere. Aenean ultrices dui at ipsum sagittis, pharetra lacinia dui faucibus. In ac bibendum ex. Aenean dolor massa, euismod sit amet suscipit et Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet mi nec massa tincidunt blandit et eu sem. Maecenas laoreet ultrices diam dignissim posuere. Aenean ultrices dui at ipsum sagittis, pharetra lacinia dui faucibus. In ac bibendum ex. Aenean dolor massa, euismod sit amet suscipit et“',
-    },
-    {
-        image: '/images/user-2.png',
-        name: 'Esther Howard',
-        role: 'Fashion Designer',
-        text: 'Nullam sapien elit, dignissim eu viverra et, scelerisque et felis. Aliquam egestas dui elit, quis tincidunt lacus aliquam et. Duis nulla velit, dignissim ut odio ac, eleifend luctus leo. Ut ac imperdiet velit. Aliquam semper ex in volutpat rutrum. ',
-    },
-    {
-        image: '/images/user-1.png',
-        name: 'Kristin Watson',
-        role: 'Fashion Designer',
-        text: '“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet mi nec massa tincidunt blandit et eu sem. Maecenas laoreet ultrices diam dignissim posuere. Aenean ultrices dui at ipsum sagittis, pharetra lacinia dui faucibus. In ac bibendum ex. Aenean dolor massa, euismod sit amet suscipit et“',
-    },
-    {
-        image: '/images/user-2.png',
-        name: 'Esther Howard',
-        role: 'Fashion Designer',
-        text: 'Nullam sapien elit, dignissim eu viverra et, scelerisque et felis. Aliquam egestas dui elit, quis tincidunt lacus aliquam et. Duis nulla velit, dignissim ut odio ac, eleifend luctus leo. Ut ac imperdiet velit. Aliquam semper ex in volutpat rutrum. ',
-    },
-];
-
-const ReviewCarousel = () => {
+const ReviewCarousel = ({
+    reviews = [],
+    isLoading = false,
+}: IRewiewCarouselProps) => {
     const [uniqueId] = useState<string>(uniqid());
 
-    const renderReview = (item: IReviewItemProps, index: number) => (
+    const renderReview = (item: IReviewItemProps, index: number): React.ReactNode => (
         <SwiperSlide key={index}>
             <ReviewItem {...item} />
         </SwiperSlide>
     );
 
-    const renderReviews = () => reviews.map(renderReview);
+    const renderSkeletonItem = (index: number) => (
+        <SwiperSlide key={index}>
+            <Skeleton
+                className="review-carousel__skeleton"
+                baseColor="#FFFFFF"
+            />
+        </SwiperSlide>
+    );
+
+    const renderReviews = (): React.ReactNode[] => reviews.map(renderReview);
+
+    const renderSwiper = (): React.ReactNode => {
+        if (isLoading || reviews.length) {
+            return (
+                <Swiper
+                    className="review-carousel__carousel"
+                    modules={[Navigation]}
+                    spaceBetween={24}
+                    slidesPerView={2}
+                    navigation={{ prevEl: `.review-carousel-${uniqueId}__prev`, nextEl: `.review-carousel-${uniqueId}__next` }}
+                >
+                    {
+                        isLoading
+                            ? [...Array(2).keys()].map(renderSkeletonItem)
+                            : renderReviews()
+                    }
+                </Swiper>
+            );
+        }
+      
+        return (
+            <div className="review-carousel__empty">
+                <EmptyContainer text="No Reviews" />
+            </div>
+        );
+    };
 
     return (
         <div className="review-carousel">
@@ -52,26 +65,18 @@ const ReviewCarousel = () => {
                     <h2 className="review-carousel__title">What Client Says About Us</h2>
                     <div className="review-carousel__arrows">
                         <ArrowButton
-                            className={`review-carousel__prev review-carousel-${uniqid}__prev`}
+                            className={`review-carousel__prev review-carousel-${uniqueId}__prev`}
                             theme="blue-lagoon"
                             shape="circle"
                         />
                         <ArrowButton
-                            className={`review-carousel__next review-carousel-${uniqid}__next`}
+                            className={`review-carousel__next review-carousel-${uniqueId}__next`}
                             theme="blue-lagoon"
                             shape="circle"
                         />
                     </div>
                 </div>
-                <Swiper
-                    className="review-carousel__carousel"
-                    modules={[Navigation]}
-                    spaceBetween={24}
-                    slidesPerView={2}
-                    navigation={{ prevEl: '.review-carousel__prev', nextEl: '.review-carousel__next' }}
-                >
-                    {renderReviews()}
-                </Swiper>
+                {renderSwiper()}
             </div>
         </div>
     );

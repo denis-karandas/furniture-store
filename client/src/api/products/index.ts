@@ -4,7 +4,7 @@ import { IFetchProductsRequest, IFetchProductsResponse } from './interfaces';
 export const fetchProducts = async (
     limit: number = 10,
     page: number = 1,
-): Promise<any> => {
+): Promise<IFetchProductsResponse> => {
     const searchParams = new URLSearchParams({
         limit: limit.toString(),
         page: page.toString(),
@@ -16,7 +16,7 @@ export const fetchProducts = async (
 export const fetchTopProducts = async (
     limit: number = 10,
     page: number = 1,
-): Promise<any> => {
+): Promise<IFetchProductsResponse> => {
     const searchParams = new URLSearchParams({
         limit: limit.toString(),
         page: page.toString(),
@@ -28,7 +28,7 @@ export const fetchTopProducts = async (
 export const fetchRecentProducts = async (
     limit: number = 10,
     page: number = 1,
-): Promise<any> => {
+): Promise<IFetchProductsResponse> => {
     const searchParams = new URLSearchParams({
         limit: limit.toString(),
         page: page.toString(),

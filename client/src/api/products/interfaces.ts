@@ -8,6 +8,7 @@ export interface IProduct {
     product_price: IProductPrice;
     created_at: string;
     updated_at: string;
+    is_favorite: boolean;
 }
 
 export interface IProductImage {

@@ -1,4 +1,13 @@
 .account-product-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    &__item:not(:first-child) {
+        margin-top: 10px;
+    }
+
+    &__skeleton {
+        height: 84px;
+    }
+
+    &__empty {
+        height: 470px;
+    }
 }

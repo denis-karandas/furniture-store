@@ -10,6 +10,7 @@
     }
 
     &__carousel {
+        height: 424px;
         overflow: initial !important;
     }
 
@@ -71,5 +72,14 @@
     &__wrapper {
         width: 1320px;
         margin: 40px auto 0;
+    }
+
+    &__skeleton {
+        height: 424px;
+    }
+
+    &__empty {
+        height: 424px;
+        margin-top: 40px;
     }
 }

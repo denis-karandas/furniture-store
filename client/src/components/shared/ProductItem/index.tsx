@@ -13,13 +13,17 @@ import './ProductItem.scss';
 
 
 const ProductItem = ({
+    id,
     image,
     name = '',
     price = 0,
     oldPrice = 0,
     currency = 'USD',
     url = '',
+    isFavorite = false,
     badges = [],
+    onAddFavorite,
+    onDeleteFavorite,
 }: IProductItemProps) => {
     const [inTheCart, setInTheCart] = useState<boolean>(false);
 
@@ -39,7 +43,17 @@ const ProductItem = ({
         </div>
     );
 
-    const buttonClassName = cn('product-item__button', { 'product-item__button_active': inTheCart });
+    const onToggleFavorite = () => {
+        if (isFavorite) {
+            onDeleteFavorite(id);
+        }
+        else {
+            onAddFavorite(id);
+        }
+    };
+
+    const cartButtonClassName = cn('product-item__button', { 'product-item__button_active': inTheCart });
+    const isFavoriteButtonClassName = cn('product-item__favorite', { 'product-item__favorite_active': isFavorite });
 
     return (
             <div className="product-item">
@@ -50,7 +64,6 @@ const ProductItem = ({
                         alt={image.alt}
                         width={312}
                         height={312}
-                        // effect="blur"
                     />
                     {badges.length > 0 && renderBadges()}
                 </NavLink>
@@ -63,13 +76,15 @@ const ProductItem = ({
                         {isOldPrice && renderOldPrice()}
                     </div>
                     <Button
-                        className={buttonClassName}
-                        onClick={() => setInTheCart(prevState => !prevState)}
+                        className={cartButtonClassName}
                     >
                         <CartIcon />
                     </Button>
                 </div>
-                <Button className="product-item__favorite">
+                <Button
+                    className={isFavoriteButtonClassName}
+                    onClick={onToggleFavorite}
+                >
                     <HeartIcon />
                 </Button>
             </div>

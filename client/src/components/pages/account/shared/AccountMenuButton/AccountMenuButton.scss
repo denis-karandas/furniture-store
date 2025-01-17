@@ -1,0 +1,73 @@
+@import 'styles/colors.scss';
+
+.account-menu-button {
+    position: relative;
+
+    &__button {
+        width: 18px;
+        height: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+
+        span {
+            width: 4px;
+            height: 4px;
+            display: block;
+            background-color: $black;
+            border-radius: 50%;
+
+            &::before {
+                content: '';
+                width: 4px;
+                height: 4px;
+                display: block;
+                background-color: $black;
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+            }
+            
+            &::after {
+                content: '';
+                width: 4px;
+                height: 4px;
+                display: block;
+                background-color: $black;
+                border-radius: 50%;
+                position: absolute;
+                bottom: 0;
+            }
+        }
+    }
+
+    &__options {
+        display: none;
+        width: 120px;
+        background-color: $white;
+        padding: 5px 0;
+        border: 1px solid $iron;
+        border-radius: 5px;
+        position: absolute;
+        top: 25px;
+        right: 0;
+        z-index: 10;
+
+        &_active {
+            display: block;
+        }
+    }
+
+    &__option {
+        padding: 6px 12px;
+        user-select: none;
+
+        &:hover {
+            color: $bondiBlue;
+            background-color: $porcelain;
+            cursor: pointer;
+        }
+    }
+}

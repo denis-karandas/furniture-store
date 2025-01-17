@@ -8,7 +8,11 @@ export interface IAuthGuardProps {
 }
 
 const AuthGuard = ({ children }: IAuthGuardProps) => {
-    const { user } = useUserStore();
+    const { user, error } = useUserStore();
+
+    if (error) {
+        return <Navigate to="/sign-in" />;
+    }
 
     if (localStorage.getItem('authenticated')) {
         if (user) {

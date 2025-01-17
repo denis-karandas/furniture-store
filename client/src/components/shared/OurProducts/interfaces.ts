@@ -1,4 +1,4 @@
-import { IProductItemProps } from 'components/shared/ProductItem/interfaces';
+import { IProductItem } from 'components/shared/ProductItem/interfaces';
 
 export enum OurProductsTab {
     ALL = 'all',
@@ -11,8 +11,11 @@ export enum OurProductsTab {
 export interface IOurProductsProps {
     tabs: IProductTab[];
     activeTab: OurProductsTab;
-    products: IProductItemProps[];
+    products: IProductItem[];
+    isLoading?: boolean;
     setTab: (tab: OurProductsTab) => void;
+    onAddFavorite: (product_id: number) => void;
+    onDeleteFavorite: (product_id: number) => void;
 }
 
 export interface IProductTab {

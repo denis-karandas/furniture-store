@@ -1,6 +1,9 @@
 export {
     AccountContent,
     AccountSidebar,
+    AccountProductList,
+    AccountProductItem,
+    AccountMenuButton,
     AccountFavoritesPage,
 } from './account';
 

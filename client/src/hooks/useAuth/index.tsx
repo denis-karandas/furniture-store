@@ -3,24 +3,32 @@ import { useUserStore } from 'stores';
 import { checkAuth } from 'api/auth';
 
 const useAuth = () => {
-    const { setUser } = useUserStore();
+    const { setUser, setIsLoading, setError, reset } = useUserStore();
 
     useEffect(() => {
-        const asyncFunc = async () => {
-            try {
-                const { user } = await checkAuth();
-
-                if (user) {
+        if (localStorage.getItem('authenticated')) {
+            const asyncFunc = async () => {
+                setIsLoading(true);
+    
+                try {
+                    const { user } = await checkAuth();
+    
                     setUser(user);
                 }
-            }
-            catch (err) {}
-        };
-        
-        if (localStorage.getItem('authenticated')) {
+                catch (err) {
+                    setError(err);
+                }
+    
+                setIsLoading(false);
+            };
+
             asyncFunc();
         }
-    }, [checkAuth, setUser]);
+
+        return () => {
+            reset();
+        };
+    }, [checkAuth, setUser, setIsLoading, setError, reset]);
 };
 
 export default useAuth;

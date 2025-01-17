@@ -1,0 +1,25 @@
+@import 'styles/colors.scss';
+
+.empty-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    &__icon {
+        width: 80px;
+        height: 80px;
+
+        path { 
+            stroke: $santasGray;
+        }
+    }
+
+    &__label {
+        font-weight: 600;
+        font-size: 30px;
+        color: $santasGray;
+    }
+}

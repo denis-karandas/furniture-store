@@ -1,6 +1,11 @@
-import { IProductBadgeProps } from "components/shared/ProductBadge/interfaces";
+import { IProductBadgeProps } from 'components/shared/ProductBadge/interfaces';
 
-export interface IProductItemProps {
+export type IProductItemProps = IProductItem & {
+    onAddFavorite: (product_id: number) => void;
+    onDeleteFavorite: (product_id: number) => void;
+}
+
+export interface IProductItem {
     id: number;
     image: {
         url: string;
@@ -13,5 +18,6 @@ export interface IProductItemProps {
     oldPrice: number;
     currency: 'USD';
     url: string;
+    isFavorite: boolean;
     badges: IProductBadgeProps[];
 }

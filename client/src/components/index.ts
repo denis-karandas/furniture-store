@@ -12,6 +12,9 @@ export {
     AccountContent,
     AccountSidebar,
     AccountFavoritesPage,
+    AccountProductList,
+    AccountProductItem,
+    AccountMenuButton,
     SignInPage,
     SignInForm,
     SignUpPage,
@@ -55,4 +58,5 @@ export {
     ReviewItem,
     ImageGallery,
     BestFurniture,
+    EmptyContainer,
 } from './shared';

@@ -1,10 +1,22 @@
 import React from 'react';
-import { AccountProductList } from 'components/pages/account/shared';
+import { AccountProductList } from 'components';
+import { IAccountFavoritesPageProps } from './interfaces';
 
-const AccountFavoritesPage = () => {
+import './AccountFavoritesPage.scss';
+
+const AccountFavoritesPage = ({
+    products = [],
+    isLoading = false,
+    getOptions,
+}: IAccountFavoritesPageProps) => {
     return (
         <div className="account-favorites-page">
-            <AccountProductList items={[]} />
+            <h2 className="account-favorites-page__title">Favorites</h2>
+            <AccountProductList
+                items={products}
+                isLoading={isLoading}
+                getOptions={getOptions}
+            />
         </div>
     );
 }

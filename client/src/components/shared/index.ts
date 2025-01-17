@@ -26,3 +26,4 @@ export { default as ImageGallery } from './ImageGallery';
 export { default as OurProducts } from './OurProducts';
 export { default as PageHeader } from './PageHeader';
 export { default as BestFurniture } from './BestFurniture';
+export { default as EmptyContainer } from './EmptyContainer';

@@ -23,6 +23,7 @@
     }
 
     &__carousel {
+        height: 345px;
         margin-top: 40px;
     }
 
@@ -65,5 +66,15 @@
 
     &__next {
         right: 88px;
+    }
+
+    
+    &__skeleton {
+        height: 345px;
+    }
+
+    &__empty {
+        height: 345px;
+        margin-top: 40px;
     }
 }

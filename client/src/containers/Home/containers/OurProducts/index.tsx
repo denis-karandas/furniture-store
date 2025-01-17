@@ -1,87 +1,96 @@
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { OurProducts as OurProductsComponents, BaseSection } from 'components';
-import { IProductItemProps } from 'components/shared/ProductItem/interfaces';
 import { OurProductsTab } from 'components/shared/OurProducts/interfaces';
 import { fetchProducts } from 'api/products';
+import { useOurProductsStore } from 'stores';
 import { formatProductToComponentItem } from 'containers/Home/adapters';
-import { initialState, tabs } from './config';
-import { reducer } from './reducer';
-import { OurProductsAction } from './interfaces';
+import { useFavorites } from 'containers/Home/hooks';
+import { tabs as tabOptions } from './config';
 
 const OurProducts = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const {
+        tab,
+        data,
+        isLoading,
+        setTab,
+        setProducts,
+        setIsLoading,
+        setError,
+        reset,
+    } = useOurProductsStore();
 
-    const fetchProductsHandler = useCallback((tab: OurProductsTab) => {
-        dispatch({
-            type: OurProductsAction.SET_IS_LOADING,
-            payload: { tab, isLoading: true },
-        });
+    const { onAddFavorite, onDeleteFavorite } = useFavorites();
 
-        fetchProducts(8)
-            .then(({ items }) => {
-                dispatch({
-                    type: OurProductsAction.SET_PRODUCTS,
-                    payload: {
-                        tab,
-                        data: items.map(formatProductToComponentItem),
-                    },
-                });
-            })
-            .catch(error => {
-                dispatch({
-                    type: OurProductsAction.SET_ERROR,
-                    payload: { tab, error },
-                });
-            })
-            .finally(() => {
-                dispatch({
-                    type: OurProductsAction.SET_IS_LOADING,
-                    payload: { tab, isLoading: false },
-                });
-            });
-    }, [dispatch]);
-    
-    const setTabHandler = useCallback((tab: OurProductsTab) => {
-        dispatch({ type: OurProductsAction.SET_TAB, payload: tab });
+    const fetchProductsHandler = useCallback(async (tab: OurProductsTab) => {
+        setIsLoading(true);
 
-        const thereAreTabData = !!state.tabs[tab].data.length;
-        if (!thereAreTabData) {
-            fetchProductsHandler(tab);
+        try {
+            switch (tab) {
+                case OurProductsTab.ALL: {
+                    const { items } = await fetchProducts(8);
+
+                    setProducts(items.map(formatProductToComponentItem));
+                    break;
+                }
+                case OurProductsTab.NEWEST: {
+                    const { items } = await fetchProducts(8);
+
+                    setProducts(items.map(formatProductToComponentItem));
+                    break;
+                }
+                case OurProductsTab.TRENDING: {
+                    const { items } = await fetchProducts(8);
+
+                    setProducts(items.map(formatProductToComponentItem));
+                    break;
+                }
+                case OurProductsTab.BEST_SELLERS: {
+                    const { items } = await fetchProducts(8);
+
+                    setProducts(items.map(formatProductToComponentItem));
+                    break;
+                }
+                case OurProductsTab.FEATURED: {
+                    const { items } = await fetchProducts(8);
+
+                    setProducts(items.map(formatProductToComponentItem));
+                    break;
+                }
+                default: {
+                    console.log('Unknown tab');
+                }
+            }
         }
-    }, [state, fetchProductsHandler, dispatch]);
+        catch (err) {
+            setError(err);
+        }
+        
+        setIsLoading(false);
+    }, [setProducts, setIsLoading, setError, fetchProducts, formatProductToComponentItem]);
 
     useEffect(() => {
         fetchProductsHandler(OurProductsTab.ALL);
 
         return () => {
-            dispatch({ type: OurProductsAction.RESET });
+            reset();
         };
-    }, [fetchProductsHandler, dispatch]);
+    }, [fetchProductsHandler]);
 
-    const getProductsByTab = (): IProductItemProps[] => {
-        switch (state.tab) {
-            case OurProductsTab.ALL:
-                return state.tabs.all.data;
-            case OurProductsTab.NEWEST:
-                return state.tabs.newest.data;
-            case OurProductsTab.TRENDING:
-                return state.tabs.trending.data;
-            case OurProductsTab.BEST_SELLERS:
-                return state.tabs.best_sellers.data;
-            case OurProductsTab.FEATURED:
-                return state.tabs.featured.data;
-            default:
-                return [];
-        }
+    const setTabHandler = (tab: OurProductsTab) => {
+        setTab(tab);
+        fetchProductsHandler(tab);
     };
 
     return (
         <BaseSection className="mt-80">
             <OurProductsComponents
-                tabs={tabs}
-                activeTab={state.tab}
-                products={getProductsByTab()}
+                tabs={tabOptions}
+                activeTab={tab}
+                products={data}
+                isLoading={isLoading}
                 setTab={setTabHandler}
+                onAddFavorite={onAddFavorite}
+                onDeleteFavorite={onDeleteFavorite}
             />
         </BaseSection>
     );

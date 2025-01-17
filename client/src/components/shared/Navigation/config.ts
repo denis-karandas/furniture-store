@@ -6,16 +6,8 @@ export const navItems: INavigationItem[] = [
         path: '/',
     },
     {
-        name: 'Shop',
-        path: '/shop',
-    },
-    {
-        name: 'Product',
-        path: '/product',
-    },
-    {
-        name: 'Pages',
-        path: '/pages',
+        name: 'Products',
+        path: '/products',
     },
     {
         name: 'About',

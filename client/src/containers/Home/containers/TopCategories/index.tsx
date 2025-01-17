@@ -65,6 +65,7 @@ const TopCategories = () => {
             <CategoryCarousel
                 title="Top Categories"
                 categories={categories}
+                isLoading={false}
             />
         </section>
     );

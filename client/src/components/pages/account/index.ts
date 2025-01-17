@@ -5,4 +5,7 @@ export {
 export {
     AccountContent,
     AccountSidebar,
+    AccountProductList,
+    AccountProductItem,
+    AccountMenuButton,
 } from './shared';

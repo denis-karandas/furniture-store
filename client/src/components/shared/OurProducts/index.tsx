@@ -1,7 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import { ProductItem } from 'components';
-import { IProductItemProps } from 'components/shared/ProductItem/interfaces';
+import Skeleton from 'react-loading-skeleton';
+import { ProductItem, EmptyContainer } from 'components';
+import { IProductItem } from 'components/shared/ProductItem/interfaces';
 import { IOurProductsProps, IProductTab } from './interfaces';
 
 import './OurProducts.scss';
@@ -10,7 +11,10 @@ const OurProducts = ({
     activeTab,
     tabs = [],
     products = [],
+    isLoading = false,
     setTab,
+    onAddFavorite,
+    onDeleteFavorite,
 }: IOurProductsProps) => {
     const renderTab = ({ key, name }: IProductTab) => {
         const tabClassName = cn({ 'our-products__tab_active': key === activeTab });
@@ -28,12 +32,41 @@ const OurProducts = ({
 
     const renderTabs = () => tabs.map(renderTab);
 
-    const renderProduct = (product: IProductItemProps, index: number) => (
+    const renderProduct = (product: IProductItem) => (
         <li key={product.id}>
-            <ProductItem {...product} />
+            <ProductItem
+                {...product}
+                onAddFavorite={onAddFavorite}
+                onDeleteFavorite={onDeleteFavorite}
+            />
         </li>
     );
-    const renderProducts = () => products.map(renderProduct);
+
+    const renderSkeletonItem = (index: number) => (
+        <li key={`skeleton-item-${index}`}>
+            <Skeleton width={312} height={374} />
+        </li>
+    );
+
+    const renderProducts = (): React.ReactNode => {
+        if (isLoading || products.length) {
+            return (
+                <ul className="our-products__products">
+                    {
+                        isLoading
+                            ? [...Array(8).keys()].map(renderSkeletonItem)
+                            : products.map(renderProduct)
+                    }
+                </ul>
+            );
+        }
+
+        return (
+            <div className="our-products__empty">
+                <EmptyContainer text="No Products" />
+            </div>
+        );
+    };
 
     return (
         <div className="our-products">
@@ -41,9 +74,7 @@ const OurProducts = ({
             <ul className="our-products__tabs">
                 {renderTabs()}
             </ul>
-            <ul className="our-products__products">
-                {renderProducts()}
-            </ul>
+            {renderProducts()}
         </div>
     );
 }

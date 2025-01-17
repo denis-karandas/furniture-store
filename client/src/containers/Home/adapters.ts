@@ -1,7 +1,7 @@
 import { IProduct } from 'api/products/interfaces';
-import { IProductItemProps } from 'components/shared/ProductItem/interfaces';
+import { IProductItem } from 'components/shared/ProductItem/interfaces';
 
-export const formatProductToComponentItem = (item: IProduct): IProductItemProps => {
+export const formatProductToComponentItem = (item: IProduct): IProductItem => {
     const image = item.product_images[0].image;
     const placeholder = item.product_images[0].placeholder_image;
 
@@ -17,6 +17,7 @@ export const formatProductToComponentItem = (item: IProduct): IProductItemProps 
         oldPrice: 0,
         currency: 'USD',
         url: '/product/' + item.slug,
+        isFavorite: !!item.is_favorite,
         badges: [],
     };
 };
